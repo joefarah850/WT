@@ -480,6 +480,11 @@ header h1 {
 /* Responsive */
 
 @media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+        margin-right: -8px;
+    }
+    
      /* Section 1 */
 
     .slider {
