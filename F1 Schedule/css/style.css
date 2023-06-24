@@ -309,6 +309,7 @@ div.banner {
 .race-name {
     margin-top: 10%;
 }
+
 .drivers-table {
     width: 800px;
     font-size: 14px;
@@ -669,15 +670,91 @@ header h1 {
     }
 
     /* Section 3 */
+
+    div.banner {
+        width: 100vw;
+    }
+
     .race-name,
     .race-date,
     .race-location {
         font-size: 32px;
     }
 
+    .about {
+        width: 90vw;
+    }
+
+    .desc {
+        width: 90vw;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    h3.top {
+        font-size: 24px;
+        position: unset;
+        width: 90vw;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 50px;
+    }
+
     .drivers-table {
-        width: 100%;
+        width: 100vw;
+        font-size: 10px;
+        margin-top: 30px;
+        margin-bottom: 20px;
+        margin-left: -8px;
+    }
+
+    .drivers-table th,
+    .drivers-table td {
+        padding: 2px;
+        font-size: 8px;
+    }
+
+    .drivers-table th {
         font-size: 12px;
+    }
+
+    .team-container {
+        margin-left: 5%;
+    }
+
+    .team-logo {
+        height: 20px;
+        width: 20px;
+    }
+
+    .nationality-container {
+        margin-left: 5%;
+    }
+
+    .nationality-logo {
+        height: 15px;
+        width: 20px;
+    }
+
+    .nationality-name {
+        padding: 10px 0 10.5px 0;
+    }
+
+    .map-container {
+        width: 100vw;
+    }
+
+    iframe.map {
+        max-width: 90vw;
+        margin-left: 5%;
+        margin-right: auto;
+        margin-top: 60px;
+    }
+
+    .def {
+        font-size: 20px;
+        left: 5%;
+        top: 5%;
     }
 
     /* Header and footer */
