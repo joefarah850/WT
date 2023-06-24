@@ -659,6 +659,10 @@ header h1 {
         bottom: -80px;
     }
 
+    div.title {
+        padding-top: 5px;
+    }
+
     /* Section 3 */
     .race-name,
     .race-date,
