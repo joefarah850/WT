@@ -663,6 +663,11 @@ header h1 {
         padding-top: 5px;
     }
 
+    .line {
+        width: 94%;
+        border-bottom: 6px solid black;
+    }
+
     /* Section 3 */
     .race-name,
     .race-date,
