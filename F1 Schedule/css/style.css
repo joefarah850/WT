@@ -765,6 +765,8 @@ header h1 {
         transform: translateX(-30%);
         top: 25%;
         transform: translateY(-25%);
+        text-align: center;
+        margin-right: 10px;
     }
 
     header img {
