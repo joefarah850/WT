@@ -4,7 +4,7 @@ const topDrivers = [
         nationality: "Dutch",
         team: "Red Bull Racing",
         points: "145",
-        teamLogo: "../images/teams/rb.jpg",
+        teamLogo: "../images/teams/red-bull-logo.jpg",
         flag: "../images/flags/Netherlands.jpg",
     },
     {
@@ -36,7 +36,7 @@ const topDrivers = [
         nationality: "Mexican",
         team: "Red Bull Racing",
         points: "84",
-        teamLogo: "../images/teams/rb.jpg",
+        teamLogo: "../images/teams/red-bull-logo.jpg",
         flag: "../images/flags/Mexico.jpg",
     },
 ];
