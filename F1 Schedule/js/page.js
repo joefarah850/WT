@@ -16,8 +16,6 @@ function showPage(n) {
 
     let scrollPosition = window.scrollY;
 
-    console.log(scrollPosition);
-
     window.location.href = '#page-' + n;
 
     window.scrollTo(-1, scrollPosition);
