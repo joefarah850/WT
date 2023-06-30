@@ -1,6 +1,8 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 import mysql.connector
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
 CORS(app, resources={r"/get_slideshow_images": {"origins": "http://localhost:58186"}, 
@@ -9,10 +11,12 @@ CORS(app, resources={r"/get_slideshow_images": {"origins": "http://localhost:581
                      r"/get_drivers/*": {"origins": "http://localhost:58186"}
 })
 
+load_dotenv()
+
 db = mysql.connector.connect(
     host='localhost',
     user='root',
-    password='pass',
+    password=os.getenv('DB_PASSWORD'),
     database='f1 schedule'
 )
 
@@ -66,7 +70,7 @@ def get_drivers(event):
     db = mysql.connector.connect(
         host='localhost',
         user='root',
-        password='pass',
+        password=os.getenv('DB_PASSWORD'),
         database='f1 schedule'
     )
 
