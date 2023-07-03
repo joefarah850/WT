@@ -480,6 +480,85 @@ header h1 {
     top: 2.5%;
 }
 
+/* Loading */
+
+#loading-overlay img {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 70px;
+    left: 43%;
+    z-index: 1;
+}
+
+/* Forms */
+
+.form-container {
+    margin-top: 15vh;
+    width: 400px;
+    display: none;
+    position: relative;
+    border: 5px solid black;
+    box-shadow: 0 0 2px 2px white;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.form-container input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.form-container input,
+.form-container label {
+    margin-left: 105px;
+    margin-right: 100px;
+}
+
+.form-container div {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+.form-container.active {
+    display: block;
+    background-color: white !important;
+}
+
+.form-container span {
+    font-size: 10px;
+    margin-left: 100px;
+}
+
+#su, #li {
+    font-family: F1;
+    margin-left: 43%;
+    margin-bottom: 20px;
+}
+
+#su {
+    margin-left: 41.5%;
+}
+
+#su:hover {
+    cursor: pointer;
+}
+
+#li:hover {
+    cursor: pointer
+}
+
+#login-image {
+    position: absolute;
+    left: 100px;
+    top: 0;
+    height: 100px;
+    width: 150px;
+}
+
 /* Responsive */
 
 @media (max-width: 768px) {

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="images/favicon.jpeg" style="background-color: transparent">
+    <title>F1 Schedule 2023</title>
+    <link href="css/style.css" rel="stylesheet" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            flex-direction: column;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <img id="login-image" src="images/f1_logo.svg" alt="F1 logo white" />
+
+    <form id="loginForm" method="post" class="form-container active">
+        <h2>Login</h2>
+
+        <div id="message"></div>
+
+        <label for="emailAddress">Email address:</label><br />
+        <input type="email" id="l-emailAddress" name="l-emailAddress" placeholder="Email address" required><br>
+        <label for="password">Password:</label><br />
+        <input type="password" id="l-password" name="l-password" placeholder="Password" required><br>
+        <input id="li" type="submit" value="Login">
+
+        <span>Don't have an account? <a href="#" onclick="toggleForm('signupForm')">Register</a></span>
+
+
+        <div id="loading-overlay" style="display: none">
+            <img src="images/loading.gif" alt="Loading" />
+        </div>
+    </form>
+
+
+
+    <form id="signupForm" method="post" class="form-container">
+        <h2>Register</h2>
+
+        <label for="firstName">First name:</label><br />
+        <input type="text" id="firstName" name="firstName" placeholder="First name" required><br>
+        <label for="lastName">Last Name:</label><br />
+        <input type="text" id="lastName" name="lastName" placeholder="Last name" required><br>
+        <label for="emailAddress">Email Address:</label><br />
+        <input type="email" id="s-emailAddress" name="s-emailAddress" placeholder="Email address" required><br>
+        <label for="password">Password:</label><br />
+        <input type="password" id="s-password" name="s-password" placeholder="Password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$" maxlength="30"
+               title="Password must be between 8 and 30 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character (!@#$%^&*)"
+               required><br>
+        <label for="confirmPassword">Confirm Password:</label><br>
+        <span id="passwordMismatch" style="color: red; display: none; margin-top: 10px; margin-left: 28.5%;">Passwords do not match</span>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required><br>
+        <input id="su" type="submit" value="Register">
+
+        <span>Already have an account? <a href="#" onclick="toggleForm('loginForm')">Login</a></span>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            loginListener();
+        });
+    </script>
+    <script src="js/script.js" defer></script>
+</body>
+</html>
