@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 import mysql.connector
 from dotenv import load_dotenv
+from time import sleep
 import os
 
 app = Flask(__name__)
@@ -86,21 +87,28 @@ def signup():
 
 @app.route('/get_slideshow_images', methods=['GET'])
 def get_slideshow_images():
+    max_retries = 3
+    retry_delay = 1 
 
-    cursor = db.cursor()
+    for _ in range(max_retries):
+        try:
+            with db.cursor() as cursor:
+                cursor.execute("SELECT image_source FROM slideshow WHERE priority = 1 ORDER BY RAND()")
+                img1 = cursor.fetchone()
 
-    cursor.execute("SELECT image_source FROM slideshow WHERE priority = 1 ORDER BY RAND()")
-    img1 = cursor.fetchone()
+                cursor.execute("SELECT image_source FROM slideshow WHERE priority = 2 ORDER BY RAND()")
+                img2 = cursor.fetchone()
 
-    cursor.execute("SELECT image_source FROM slideshow WHERE priority = 2 ORDER BY RAND()")
-    img2 = cursor.fetchone()
+                cursor.execute("SELECT image_source FROM slideshow WHERE priority = 3 ORDER BY RAND()")
+                img3 = cursor.fetchone()
 
-    cursor.execute("SELECT image_source FROM slideshow WHERE priority = 3 ORDER BY RAND()")
-    img3 = cursor.fetchone()
+            return jsonify([img1, img2, img3])
 
-    cursor.close()
+        except Exception as e:
+            print(f"Error in get_slideshow_images: {e}")
+            sleep(retry_delay)
 
-    return jsonify([img1, img2, img3])
+    abort(500) 
 
 @app.route('/get_event_thumbnails', methods=['GET'])
 def get_event_thumbnails():
