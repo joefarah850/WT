@@ -117,14 +117,14 @@ body {
 
 .section-2 h3 {
     position: absolute;
-    left: 105px;
+    left: 133px;
     font-size: 26px;
 }
 
 .line {
     position: absolute;
     top: 70px;
-    left: 105px;
+    left: 133px;
     font-size: 26px;
     width: 980px;
     border-bottom: 10px solid black;
