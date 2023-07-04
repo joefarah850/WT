@@ -152,6 +152,11 @@ def get_drivers(event):
 
     return jsonify(data)
 
+@app.route('/')
+def root():
+    return render_template('login.html')
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)
