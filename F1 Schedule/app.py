@@ -90,13 +90,13 @@ def get_slideshow_images():
     cursor = db.cursor()
 
     cursor.execute("SELECT image_source FROM slideshow WHERE priority = 1 ORDER BY RAND()")
-    img1 = cursor.fetchall()
+    img1 = cursor.fetchone()
 
     cursor.execute("SELECT image_source FROM slideshow WHERE priority = 2 ORDER BY RAND()")
-    img2 = cursor.fetchall()
+    img2 = cursor.fetchone()
 
     cursor.execute("SELECT image_source FROM slideshow WHERE priority = 3 ORDER BY RAND()")
-    img3 = cursor.fetchall()
+    img3 = cursor.fetchone()
 
     cursor.close()
 
