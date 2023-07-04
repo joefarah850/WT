@@ -99,7 +99,7 @@ function goToHomePage() {
     loadingOverlay.style.display = 'block';
     form.style.opacity = '0.7'
     setTimeout(function () {
-        window.location.href = 'html/index.html';
+        window.location.href = '/static/html/index.html';
         loadingOverlay.style.display = 'none';
     }, 2000);
 }

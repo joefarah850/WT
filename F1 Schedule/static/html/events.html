@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+    <script src="{{ url_for('static', filename='js/events.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/grid.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/page.js') }}" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="pages">
+        <!-- Pages -->
+        <span id="page-1"></span>
+        <span id="page-2"></span>
+        <span id="page-3"></span>
+
+        <div class="page-container">
+            <div id="grid-1" class="page">
+                <div class="grid-container" id="gridContainer1"></div>
+            </div>
+            <div id="grid-2" class="page">
+                <div class="grid-container" id="gridContainer2"></div>
+            </div>
+            <div id="grid-3" class="page">
+                <div class="grid-container" id="gridContainer3"></div>
+            </div>
+        </div>
+
+        <!--Next and Previous -->
+        <div class="sides">
+            <a class="p-prev" onclick="plusPage(-1)">&#10094;</a>
+            <a class="p-next" onclick="plusPage(1)">&#10095;</a>
+        </div>
+
+        <!-- Bottom Circles -->
+        <div class="p-buttons">
+            <a id="p-btn-1" class="active" onclick="currentPage(1)">1</a>
+            <a id="p-btn-2" onclick="currentPage(2)">2</a>
+            <a id="p-btn-3" onclick="currentPage(3)">3</a>
+        </div>
+    </div>
+</body>
+</html>
