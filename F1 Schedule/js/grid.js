@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('http://localhost:5000/get_event_thumbnails')
+    fetch('/get_event_thumbnails')
         .then(function (response) {
             if (response.ok) {
                 return response.json();

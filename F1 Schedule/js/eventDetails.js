@@ -42,7 +42,7 @@
 ];*/
 
 function updateEventDetails(index) {
-    fetch('http://localhost:5000/get_event_details')
+    fetch('/get_event_details')
         .then(function (response) {
             if (response.ok) {
                 return response.json();
@@ -97,7 +97,7 @@ function updateEventDetails(index) {
         });
 
     // drivers table
-    fetch(`http://localhost:5000/get_drivers/${index}`)
+    fetch(`/get_drivers/${index}`)
         .then(function (response) {
             if (response.ok) {
                 return response.json();

@@ -16,7 +16,7 @@ function loginListener() {
 
 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:5000/login', true);
+        xhr.open('POST', '/login', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
 
         xhr.onload = function () {
@@ -68,7 +68,7 @@ function signupListener() {
         };
 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:5000/signup', true);
+        xhr.open('POST', '/signup', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
 
         xhr.onload = function () {

@@ -6,12 +6,12 @@ import os
 
 app = Flask(__name__)
 
-CORS(app, resources={r"/get_slideshow_images": {"origins": "http://localhost:58186"}, 
-                     r"/get_event_thumbnails": {"origins": "http://localhost:58186"},
-                     r"/get_event_details": {"origins": "http://localhost:58186"},
-                     r"/get_drivers/*": {"origins": "http://localhost:58186"},
-                     r"/login": {"origins": "http://localhost:58186"},
-                     r"/signup": {"origins": "http://localhost:58186"}
+CORS(app, resources={r"/get_slideshow_images": {"origins": "https://f1-schedule-2023.onrender.com"}, 
+                     r"/get_event_thumbnails": {"origins": "https://f1-schedule-2023.onrender.com"},
+                     r"/get_event_details": {"origins": "https://f1-schedule-2023.onrender.com"},
+                     r"/get_drivers/*": {"origins": "https://f1-schedule-2023.onrender.com"},
+                     r"/login": {"origins": "https://f1-schedule-2023.onrender.com"},
+                     r"/signup": {"origins": "https://f1-schedule-2023.onrender.com"}
 })
 
 load_dotenv()
@@ -154,6 +154,6 @@ def get_drivers(event):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8000)
 
     db.close()

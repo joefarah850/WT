@@ -67,7 +67,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            fetch('http://localhost:5000/get_slideshow_images')
+            fetch('/get_slideshow_images')
                 .then(function (response) {
                     if (response.ok) {
                         return response.json();
