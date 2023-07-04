@@ -17,10 +17,10 @@ CORS(app, resources={r"/get_slideshow_images": {"origins": "http://localhost:581
 load_dotenv()
 
 db = mysql.connector.connect(
-    host='localhost',
-    user='root',
-    password=os.getenv('DB_PASSWORD'),
-    database='f1 schedule'
+    host=os.getenv('HOST'),
+    user=os.getenv('USER'),
+    password=os.getenv('PASSWORD'),
+    database=os.getenv('DATABASE')
 )
 
 @app.route('/login', methods=['POST'])
@@ -30,10 +30,10 @@ def login():
     password = data['password']
 
     db = mysql.connector.connect(
-    host='localhost',
-    user='root',
-    password=os.getenv('DB_PASSWORD'),
-    database='f1 schedule'
+        host=os.getenv('HOST'),
+        user=os.getenv('USER'),
+        password=os.getenv('PASSWORD'),
+        database=os.getenv('DATABASE')
     )
 
     cursor = db.cursor()
@@ -64,10 +64,10 @@ def signup():
     confirm_password = data['confirmPassword']
 
     db = mysql.connector.connect(
-    host='localhost',
-    user='root',
-    password=os.getenv('DB_PASSWORD'),
-    database='f1 schedule'
+        host=os.getenv('HOST'),
+        user=os.getenv('USER'),
+        password=os.getenv('PASSWORD'),
+        database=os.getenv('DATABASE')
     ) 
 
     cursor = db.cursor()
@@ -131,10 +131,10 @@ def get_event_details():
 @app.route('/get_drivers/<int:event>', methods=['GET'])
 def get_drivers(event):
     db = mysql.connector.connect(
-        host='localhost',
-        user='root',
-        password=os.getenv('DB_PASSWORD'),
-        database='f1 schedule'
+        host=os.getenv('HOST'),
+        user=os.getenv('USER'),
+        password=os.getenv('PASSWORD'),
+        database=os.getenv('DATABASE')
     )
 
     cursor = db.cursor()
