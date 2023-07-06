@@ -562,8 +562,9 @@ header h1 {
 #logout {
     position: absolute;
     right: 20px;
-    top: 50px;
-    color: white !important;
+    bottom: 25px;
+    color: white;
+    z-index: 1;
 }
 
 /* Responsive */
@@ -576,7 +577,7 @@ header h1 {
     }
 
     #logout {
-        top: 25px;
+        bottom: 5px;
     }
 
      /* Section 1 */
