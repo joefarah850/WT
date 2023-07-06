@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, render_template, request, redirect, url_for, session
-from flask_session import session
+from flask_session import Session
 from flask_cors import CORS
 import mysql.connector
 from dotenv import load_dotenv
