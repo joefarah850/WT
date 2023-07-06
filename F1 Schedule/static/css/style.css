@@ -853,4 +853,16 @@ header h1 {
         width: 20vw;
         left: 5%;
     }
+
+    /* Login */
+
+    #login-image {
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 20px;
+    }
+
+    .form-container {
+        margin-top: 20px;
+    }
 }
