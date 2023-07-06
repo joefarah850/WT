@@ -32,6 +32,16 @@ db = mysql.connector.connect(
     database=os.getenv('DATABASE')
 )
 
+@app.before_request
+def check_session_expiry():
+    last_activity = session.get('last_activity')
+    if last_activity:
+        stored_timestamp = int(localStorage.getItem('lastActivity') or 0)
+        current_timestamp = int(time.time())
+        if (current_timestamp - last_activity) >= 120:  
+            session.clear()
+    session['last_activity'] = int(time.time())
+
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()

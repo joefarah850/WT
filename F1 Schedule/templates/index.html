@@ -91,6 +91,11 @@
                     console.log(error);
                 });
         });
+
+        window.addEventListener('beforeunload', function () {
+            localStorage.setItem('lastActivity', Date.now());
+        });
+
     </script>
 </body>
 </html>
