@@ -32,7 +32,7 @@ db = mysql.connector.connect(
     password=os.getenv('PASSWORD'),
     database=os.getenv('DATABASE')
 )
-'''
+
 @app.before_request
 def check_session_expiry():
     last_activity = session.get('last_activity')
@@ -41,7 +41,7 @@ def check_session_expiry():
         current_timestamp = int(time.time())
         if (current_timestamp - last_activity) >= 120:  
             session.clear()
-    session['last_activity'] = int(time.time())'''
+    session['last_activity'] = int(time.time())
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -65,7 +65,7 @@ def login():
     
     if int(count[0]) == 1:
         session['user_id'] = 1
-        #session['last_activity'] = int(time.time())
+        session['last_activity'] = int(time.time())
         response = {'message': 1}
     else:
         response = {'message': 0}
