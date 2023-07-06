@@ -37,7 +37,6 @@ db = mysql.connector.connect(
 def check_session_expiry():
     last_activity = session.get('last_activity')
     if last_activity:
-        stored_timestamp = int(localStorage.getItem('lastActivity') or 0)
         current_timestamp = int(time.time())
         if (current_timestamp - last_activity) >= 120:  
             session.clear()
