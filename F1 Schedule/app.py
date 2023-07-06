@@ -41,7 +41,7 @@ def check_session_expiry():
         current_timestamp = int(time.time())
         if (current_timestamp - last_activity) >= 120:  
             session.clear()
-    session['last_activity'] = int(time.time())''''
+    session['last_activity'] = int(time.time())'''
 
 @app.route('/login', methods=['POST'])
 def login():
