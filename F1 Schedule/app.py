@@ -97,14 +97,14 @@ def signup():
 @app.route('/logout')
 def logout():
     session.clear()  
-    return redirect('login.html')
+    return render_template('index.html')
 
 
 
 @app.route('/index')
 def index():
     if 'user_id' not in session:
-        return redirect('login.html') 
+        return render_template('index.html')
     return render_template('index.html')
 
 
