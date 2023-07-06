@@ -38,7 +38,7 @@ def check_session_expiry():
     last_activity = session.get('last_activity')
     if last_activity:
         current_timestamp = int(time.time())
-        if (current_timestamp - last_activity) >= 120:  
+        if (current_timestamp - last_activity) >= 600:  
             session.clear()
     session['last_activity'] = int(time.time())
 
