@@ -1,18 +1,26 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, request, redirect, url_for, session
+from flask_session import session
 from flask_cors import CORS
 import mysql.connector
 from dotenv import load_dotenv
 from time import sleep
+import secrets
 import os
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = secrets.token_hex(16) 
+app.config['SESSION_TYPE'] = 'filesystem'  
+Session(app)
+
 
 CORS(app, resources={r"/get_slideshow_images": {"origins": "https://f1-schedule-2023.onrender.com"}, 
                      r"/get_event_thumbnails": {"origins": "https://f1-schedule-2023.onrender.com"},
                      r"/get_event_details": {"origins": "https://f1-schedule-2023.onrender.com"},
                      r"/get_drivers/*": {"origins": "https://f1-schedule-2023.onrender.com"},
                      r"/login": {"origins": "https://f1-schedule-2023.onrender.com"},
-                     r"/signup": {"origins": "https://f1-schedule-2023.onrender.com"}
+                     r"/signup": {"origins": "https://f1-schedule-2023.onrender.com"},
+                    # r"/logout": {"origins": "https://f1-schedule-2023.onrender.com"},
+                     r"/index": {"origins": "https://f1-schedule-2023.onrender.com"}
 })
 
 load_dotenv()
@@ -45,6 +53,7 @@ def login():
     count = cursor.fetchone()
     
     if int(count[0]) == 1:
+        session['user_id'] = 1
         response = {'message': 1}
     else:
         response = {'message': 0}
@@ -83,6 +92,20 @@ def signup():
     db.close()
 
     return jsonify(response)
+
+'''
+@app.route('/logout')
+def logout():
+    session.clear()  
+    return redirect(url_for('login'))'''
+
+
+
+@app.route('/index')
+def index():
+    if 'user_id' not in session:
+        return redirect(url_for('login')) 
+    return render_template('index.html')
 
 
 @app.route('/get_slideshow_images', methods=['GET'])
