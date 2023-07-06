@@ -104,7 +104,7 @@ def logout():
 @app.route('/index')
 def index():
     if 'user_id' not in session:
-        return redirect'login.html') 
+        return redirect('login.html') 
     return render_template('index.html')
 
 
