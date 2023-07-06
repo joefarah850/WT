@@ -857,12 +857,14 @@ header h1 {
     /* Login */
 
     #login-image {
+        position: unset;
         margin-right: auto;
         margin-left: auto;
         margin-top: 20px;
     }
 
     .form-container {
+        width: 100vw;
         margin-top: 20px;
     }
 }
