@@ -19,7 +19,7 @@ CORS(app, resources={r"/get_slideshow_images": {"origins": "https://f1-schedule-
                      r"/get_drivers/*": {"origins": "https://f1-schedule-2023.onrender.com"},
                      r"/login": {"origins": "https://f1-schedule-2023.onrender.com"},
                      r"/signup": {"origins": "https://f1-schedule-2023.onrender.com"},
-                    # r"/logout": {"origins": "https://f1-schedule-2023.onrender.com"},
+                     r"/logout": {"origins": "https://f1-schedule-2023.onrender.com"},
                      r"/index": {"origins": "https://f1-schedule-2023.onrender.com"}
 })
 
