@@ -559,12 +559,24 @@ header h1 {
     width: 150px;
 }
 
+#logout {
+    position: absolute;
+    right: 20px;
+    bottom: 25px;
+    color: white;
+}
+
 /* Responsive */
 
 @media (max-width: 768px) {
 
     body {
         overflow-x: hidden;
+
+    }
+
+    #logout {
+        bottom: 5px;
     }
 
      /* Section 1 */
