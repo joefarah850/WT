@@ -496,6 +496,7 @@ header h1 {
 .form-container {
     margin-top: 15vh;
     width: 400px;
+    height: 237px;
     display: none;
     position: relative;
     border: 5px solid black;
