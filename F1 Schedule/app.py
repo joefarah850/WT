@@ -94,7 +94,7 @@ def signup():
     cursor = db.cursor()
 
     cursor.execute(f'SELECT COUNT(*) FROM users WHERE email = {email_address}')
-    cursor.fetchone()
+    count = cursor.fetchone()
 
     if int(count[0]) == 1:
         response = {'message': 1}
