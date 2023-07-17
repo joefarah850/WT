@@ -93,7 +93,7 @@ def signup():
 
     cursor = db.cursor()
 
-    cursor.execute(f'SELECT COUNT(*) FROM users WHERE email = {email_address}')
+    cursor.execute(f"SELECT COUNT(*) FROM users WHERE email = '{email_address}'")
     count = cursor.fetchone()
 
     if int(count[0]) == 1:
