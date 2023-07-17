@@ -82,7 +82,7 @@ function signupListener() {
                     messageDiv.style.color = 'black';
                 }
                 else {
-                    messageDiv1.textContent = response.message;
+                    messageDiv1.textContent = 'Email address already exists!';
                 }
                 setTimeout(function () {
                     messageDiv.style.display = 'none';
