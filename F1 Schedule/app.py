@@ -93,12 +93,17 @@ def signup():
 
     cursor = db.cursor()
 
-    cursor.execute(f"INSERT INTO users (fname, lname, email, password) \
-                     VALUES ('{first_name}', '{last_name}', '{email_address}', SHA('{password}'))")
-    
-    response = {'message': 'User created successfully!'}
+    cursor.execute(f'SELECT COUNT(*) FROM users WHERE email = {email_address}')
+    cursor.fetchone()
 
-    db.commit()
+    if int(count[0]) == 1:
+        response = {'message': 1}
+    else:
+        cursor.execute(f"INSERT INTO users (fname, lname, email, password) \
+                         VALUES ('{first_name}', '{last_name}', '{email_address}', SHA('{password}'))")
+        response = {'message': 'User created successfully!'}
+        db.commit()
+
     cursor.close()
     db.close()
 

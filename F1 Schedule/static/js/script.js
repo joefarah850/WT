@@ -1,4 +1,5 @@
 var messageDiv = document.getElementById('message');
+var messageDiv1 = document.getElementById('message1');
 
 function loginListener() {
 
@@ -75,9 +76,14 @@ function signupListener() {
             if (xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
 
-                toggleForm('loginForm');
-                messageDiv.textContent = response.message;
-                messageDiv.style.color = 'black';
+                if (response.message != 1) {
+                    toggleForm('loginForm');
+                    messageDiv.textContent = response.message;
+                    messageDiv.style.color = 'black';
+                }
+                else {
+                    messageDiv1.textContent = response.message;
+                }
                 setTimeout(function () {
                     messageDiv.style.display = 'none';
                 }, 3000);
