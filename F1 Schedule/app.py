@@ -18,6 +18,7 @@ CORS(app, resources={r"/get_slideshow_images": {"origins": "https://f1-schedule-
                      r"/get_event_thumbnails": {"origins": "https://f1-schedule-2023.onrender.com"},
                      r"/get_event_details/*": {"origins": "https://f1-schedule-2023.onrender.com"},
                      r"/get_drivers/*": {"origins": "https://f1-schedule-2023.onrender.com"},
+                     r"/get_drivers_images": {"origins": "https://f1-schedule-2023.onrender.com"},
                      r"/get_predictions/*": {"origins": "https://f1-schedule-2023.onrender.com"},
                      r"/save_predictions": {"origins": "https://f1-schedule-2023.onrender.com"},
                      r"/login": {"origins": "https://f1-schedule-2023.onrender.com"},
@@ -193,6 +194,26 @@ def get_drivers(event):
                     WHERE d.nationality_id = n.id AND d.team_id = t.id AND p.driver_id = d.id AND p.event_id = {event+1} \
                     ORDER BY p.points DESC;"
     )
+
+    data = cursor.fetchall()
+
+    cursor.close()
+    db.close()
+
+    return jsonify(data)
+
+@app.route('/get_drivers_images', methods=['GET'])
+def get_drivers_images():
+    db = mysql.connector.connect(
+        host=os.getenv('HOST'),
+        user=os.getenv('USER'),
+        password=os.getenv('PASSWORD'),
+        database=os.getenv('DATABASE')
+    )
+
+    cursor = db.cursor()
+
+    cursor.execute("SELECT name, img_src FROM drivers;")
 
     data = cursor.fetchall()
 
