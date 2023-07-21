@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template, request, redirect, url_for, session
 from flask_session import Session
 from flask_cors import CORS
+import json
 import mysql.connector
 from dotenv import load_dotenv
 from time import sleep
