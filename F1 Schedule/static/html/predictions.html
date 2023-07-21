@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.jpeg" style="background-color: transparent">
+    <title>Predictions</title>
+    <link href="../css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body style="margin: 0; padding: 0; overflow: hidden;">
+    <header>
+        <img src="../images/f1_logo.svg" alt="F1 logo white" />
+        <div id="title"></div>
+    </header>
+    <div class="container" style="max-width: 100vw; margin-right: 0; margin-left: 0">
+        <div class="row justify-content-md-center" style="margin-top: 10px; margin-bottom: 30px;">
+            <div class="col container drivers">
+                <div id="choices" class="row">
+                </div>
+            </div>
+            <div class="col-md-auto container positions">
+
+            </div>
+
+            <div class="col">
+                <button class="pred-buttons" id="save" onclick="save()">Save</button>
+                <button class="pred-buttons" id="view-pred" onclick="viewPred()" disabled>View Prediction</button>
+                <button class="pred-buttons" id="reset" onclick="reset()">Reset</button>
+            </div>
+        </div>
+    </div>
+
+
+    <footer style="margin-top: -20px;">
+        <p>
+            Author: Joe Farah
+            <a href="mailto:joe.farah@wundermanthompson.com">joe.farah@wundermanthompson.com</a>
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var title = document.getElementById('title');
+            var url = document.URL;
+            var currentTitle = url.split("=").pop();
+            currentTitle = currentTitle.split("+");
+            var index = currentTitle[1];
+            currentTitle = currentTitle[0].replace(/%20/g, " ") + " PREDICTIONS";
+
+            var viewPredBtn = document.getElementById('view-pred');
+
+            viewPredBtn.addEventListener('click', () => {
+                window.location.href = 'view_predictions.html?title=' + currentTitle + "+" + index;
+            })
+
+            title.textContent = currentTitle;
+
+            var grid = document.querySelector('.positions');
+
+            var p = 1;
+            for (let i = 1; i <= 10; i++) {
+                var row = document.createElement('div');
+                row.classList.add('row')
+
+                for (let j = 1; j <= 2; j++) {
+                    var pos = document.createElement('div');
+                    pos.classList.add('col');
+
+                    var num = document.createElement('span');
+                    var draw = document.createElement('div')
+
+                    num.classList.add('num');
+                    num.textContent = (p == 1) ? '1st' : ((p == 2) ? '2nd' : ((p == 3) ? '3rd' : p + 'th'));
+                    draw.classList.add('grid-pos');
+                    draw.id = 'pos' + p;
+
+                    draw.addEventListener('drop', drop);
+                    draw.addEventListener('dragover', allowDrop);
+
+                    pos.appendChild(num);
+                    pos.appendChild(draw);
+
+                    if (p % 2 === 0) {
+                        pos.style.top = '60px';
+                    }
+
+                    row.appendChild(pos);
+                    p++;
+                }
+
+                grid.appendChild(row);
+            }
+
+            fetch('/get_drivers_images')
+                .then(function (response) {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Error: ' + response.status);
+                    }
+                })
+                .then(function (data) {
+
+                    var row = document.getElementById('choices');
+
+                    data.forEach((driver, index) => {
+                        var image = document.createElement('img');
+                        image.src = driver[1];
+                        image.id = 'dragImage' + (index + 1);
+                        image.classList.add('col-6');
+                        image.classList.add('driver-image');
+                        image.draggable = true;
+                        image.title = driver[0];
+
+                        image.addEventListener("dragstart", dragStart);
+
+                        row.appendChild(image);
+                    })
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+            setTimeout(function () {
+                fetch(`/get_predictions/${index}`)
+                    .then(function (response) {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error('Error: ' + response.status);
+                        }
+                    })
+                    .then(function (data) {
+                        console.log(data.message);
+                        if (data.message == 1) {
+                            var container1 = document.querySelector('.drivers');
+                            var container2 = document.querySelector('.positions');
+
+                            container1.classList.add('disabled');
+                            container2.classList.add('disabled');
+
+                            var saveBtn = document.getElementById('save');
+                            var resetBtn = document.getElementById('reset');
+
+                            saveBtn.disabled = true;
+                            resetBtn.disabled = true;
+                            viewPredBtn.disabled = false;
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+                }, 100);
+
+        });
+
+
+
+        var currentDroppedImage = null;
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function dragStart(event) {
+            event.dataTransfer.setData("text", event.target.id);
+        }
+
+        function drop(event) {
+            var target = event.target
+            if ((currentDroppedImage !== null && currentDroppedImage.parentNode.id === event.target.id) || event.target.id.includes('dragImage')) {
+                target = event.target.parentNode;
+                var row = document.getElementById('choices');
+                event.target.style.maxWidth = "50%";
+                row.prepend(event.target);
+            }
+            var data = event.dataTransfer.getData("text");
+            var droppedElement = document.getElementById(data);
+            droppedElement.style.maxWidth = "100%";
+            target.appendChild(droppedElement);
+            currentDroppedImage = droppedElement;
+
+        }
+
+        function reset() {
+            location.reload();
+        }
+
+        function save() {
+            var predictions = {};
+            try {
+                for (let i = 1; i <= 20; i++) {
+                    var driver = document.getElementById('pos' + i).firstElementChild;
+
+                    if (driver == null) {
+                        throw new Error('Some predictions are still empty!');
+                    } else {
+                        predictions[i] = driver.title;
+                    }
+                }
+
+                var res = confirm("Are you sure you want to save?");
+
+                if (res === true) {
+
+                    var formData = {
+                        eventID: document.URL.split("+").pop(),
+                        predictions: predictions
+                    }
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/save_predictions', true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+
+                    xhr.onload = function () {
+                        if (xhr.status === 200) {
+                            var response = JSON.parse(xhr.responseText);
+
+                            console.log(response.message);
+
+                        } else {
+                            console.log('Oops! An error occurred.');
+                        }
+                    };
+
+                    xhr.send(JSON.stringify(formData));
+
+                    var container1 = document.querySelector('.drivers');
+                    var container2 = document.querySelector('.positions');
+
+                    container1.classList.add('disabled');
+                    container2.classList.add('disabled');
+
+                    var saveBtn = document.getElementById('save');
+                    var resetBtn = document.getElementById('reset');
+                    var viewPredBtn = document.getElementById('view-pred');
+
+                    saveBtn.disabled = true;
+                    resetBtn.disabled = true;
+                    viewPredBtn.disabled = false;
+                }
+            } catch (error) {
+                alert(error);
+            }
+        }
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

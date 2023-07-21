@@ -1,5 +1,5 @@
 function updateEventDetails(index) {
-    fetch('/get_event_details')
+    fetch(`/get_event_details/${index}`)
         .then(function (response) {
             if (response.ok) {
                 return response.json();
@@ -11,7 +11,8 @@ function updateEventDetails(index) {
             const desc = document.querySelector('.desc');
             desc.innerHTML = '';
 
-            const event = data[index];
+
+            const event = data;
 
             const description = document.createElement('p');
             description.classList.add('description');
@@ -47,6 +48,17 @@ function updateEventDetails(index) {
             map.allowFullscreen = "";
             map.loading = "lazy";
             map.referrerPolicy = "no-referrer-when-downgrade";
+
+            viewPred = document.getElementById('predictions');
+            pred = document.getElementById('predict');
+
+            pred.addEventListener('click', () => {
+                window.location.href = 'predictions.html?title=' + event[1] + "+" + index;
+            })
+
+            viewPred.addEventListener('click', () => {
+                window.location.href = 'view_predictions.html?title=' + event[1] + "+" + index;
+            })
         })
         .catch(function (error) {
             console.log(error);
@@ -62,7 +74,6 @@ function updateEventDetails(index) {
             }
         })
         .then(function (data) {
-            console.log(data);
             const tableContainer = document.createElement("div");
             tableContainer.classList.add("table-container");
 
@@ -85,6 +96,7 @@ function updateEventDetails(index) {
             const tableBody = document.createElement("tbody");
 
             data.forEach(function (driver, position) {
+
                 const row = document.createElement("tr");
 
                 const positionCell = document.createElement("td");
@@ -147,6 +159,31 @@ function updateEventDetails(index) {
 
             const driversContainer = document.querySelector(".drivers");
             driversContainer.appendChild(tableContainer);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+    // predictions
+    fetch(`/get_predictions/${index}`)
+        .then(function (response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Error: ' + response.status);
+            }
+        })
+        .then(function (data) {
+            viewPred = document.getElementById('predictions');
+            pred = document.getElementById('predict');
+
+            if (data.message == 0) {
+                viewPred.disabled = true;
+                pred.disabled = false;
+            } else {
+                pred.disabled = true;
+                viewPred.disabled = false;
+            }
         })
         .catch(function (error) {
             console.log(error);

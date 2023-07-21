@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.jpeg" style="background-color: transparent">
+    <title>Predictions</title>
+    <link href="../css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body style="margin: 0; padding: 0; font-family: F1;">
+    <header>
+        <img src="../images/f1_logo.svg" alt="F1 logo white">
+        <div id="title">FORMULA 1 AWS GRAN PREMIO DE ESPA%D1A 2023 PREDICTIONS</div>
+    </header>
+
+    <table id="driv" class="drivers"></table>
+
+    <div class="d-flex justify-content-center">
+        <button id="home" class="pred-buttons">Home</button>
+    </div>
+
+    <footer style="margin-top: -20px;">
+        <p>
+            Author: Joe Farah
+            <a href="mailto:joe.farah@wundermanthompson.com">joe.farah@wundermanthompson.com</a>
+        </p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var url = document.URL;
+            var currentTitle = url.split("=").pop();
+            currentTitle = currentTitle.split("+");
+            var index = currentTitle[1];
+
+            fetch(`/get_predictions/${index}`)
+                .then(function (response) {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Error: ' + response.status);
+                    }
+                })
+                .then(function (data) {
+                    const headers = ["Position", "Name", "Nationality", "Team"];
+                    const dataTableData = [];
+                    data.prediction.forEach(function (driver, position) {
+                        const rowData = [
+                            position + 1,
+                            driver[0],
+                            `<div class="nationality-container"><img class="nationality-logo" src="${driver[2]}"><span class="nationality-name">${driver[1]}</span></div>`,
+                            `<div class="team-container"><img class="team-logo" src="${driver[4]}"><span class="team-name">${driver[3]}</span></div>`
+                        ];
+
+                        dataTableData.push(rowData);
+                    });
+
+                    const table = $("#driv").DataTable({
+                        data: dataTableData,
+                        columns: [
+                            { title: "Position" },
+                            { title: "Name" },
+                            { title: "Nationality" },
+                            { title: "Team" }
+                        ],
+                        columnDefs: [
+                            { orderable: true, targets: 0 },
+                            { orderable: false, targets: [1, 2, 3] }
+                        ],
+                        order: [[0, "asc"]]
+                    });
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+            $('#home').click(function () {
+                window.location.href = '../templates/index.html';
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
