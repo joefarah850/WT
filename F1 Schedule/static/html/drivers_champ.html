@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.jpeg" style="background-color: transparent">
+    <title>F1 Schedule 2023</title>
+    <link href="../css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body style="font-family: F1;">
+    <header>
+        <img src="../images/f1_logo.svg" alt="F1 logo white" />
+
+        <!-- Title -->
+        <h1>F1 Schedule 2023</h1>
+
+        <ul class="nav nav-tabs justify-content-center" style="position: absolute; width: 100%; bottom: 0;">
+            <li class="nav-item">
+                <a class="nav-link" href="/index">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Drivers' Championship</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="const_champ.html">Constructors' Championship</a>
+            </li>
+        </ul>
+    </header>
+
+    <table id="driv" class="drivers"></table>
+
+    <footer>
+        <p>
+            Author: Joe Farah
+            <br>
+            <a href="mailto:joe.farah@wundermanthompson.com">joe.farah@wundermanthompson.com</a>
+        </p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            fetch(`http://localhost:5000/get_drivers_champs`)
+                .then(function (response) {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Error: ' + response.status);
+                    }
+                })
+                .then(function (data) {
+
+                    const headers = ["Position", "Name", "Nationality", "Team", "Points"];
+                    const dataTableData = [];
+                    data.forEach(function (driver, position) {
+                        const rowData = [
+                            position + 1,
+                            `<div class="driver-container"><img class="driver-logo" src="${driver[1]}"><span class="driver-name">${driver[0]}</span></div>`,
+                            `<div class="nationality-container"><img class="nationality-logo" src="${driver[3]}"><span class="nationality-name">${driver[2]}</span></div>`,
+                            `<div class="team-container"><img class="team-logo" src="${driver[5]}"><span class="team-name">${driver[4]}</span></div>`,
+                            driver[6]
+                        ];
+
+                        dataTableData.push(rowData);
+                    });
+
+                    const table = $("#driv").DataTable({
+                        data: dataTableData,
+                        columns: [
+                            { title: "Position" },
+                            { title: "Name" },
+                            { title: "Nationality" },
+                            { title: "Team" },
+                            { title: "Points "}
+                        ],
+                        columnDefs: [
+                            { orderable: true, targets: 0 },
+                            { orderable: false, targets: [1, 2, 3, 4] },
+                            {
+                                targets: -1,
+                                createdCell: function (td) {
+                                    $(td).addClass('points');
+                                }
+                            }
+                        ],
+                        order: [[0, "asc"]],
+                        pageLength: 10,
+                        lengthMenu: [[10, -1], [10, "All"]]
+                    });
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        });
+    </script>
+</body>
+</html>

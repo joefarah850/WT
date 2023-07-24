@@ -18,13 +18,12 @@ body {
     height: 400px;
     background-color: #15151e;
     position: relative;
-    margin: 0 -8px 0 -8px;
 }
 
 .slider {
     position: absolute;
     top: 50px;
-    left: 25%;
+    left: 26.5%;
     width: 600px;
     height: 300px;
     text-align: center;
@@ -90,6 +89,7 @@ body {
     font-size: 18px;
     transition: 0.6s ease;
     border-radius: 0 3px 3px 0;
+    text-decoration: none;
 }
 
 .s-next {
@@ -103,9 +103,10 @@ body {
 
 .s-prev:hover, .s-next:hover {
     background-color: rgba(0,0,0,0.8);
+    color: white;
 }
 
-.active, a:hover {
+.buttons .active, .buttons a:hover, .p-buttons .active, .p-buttons a:hover {
     background-color: #717171 !important;
 }
 
@@ -115,10 +116,11 @@ body {
     position: relative;
 }
 
-.section-2 h3 {
+#up-event {
     position: absolute;
     left: 133px;
     font-size: 26px;
+    top: 20px;
 }
 
 .line {
@@ -222,7 +224,7 @@ body {
 }
 
 .p-prev:hover, .p-next:hover {
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.5);
 }
 
 .p-buttons {
@@ -339,14 +341,14 @@ div.banner {
     border-bottom: none;
 }
 
-.team-container {
+
+.team-container, .driver-container {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-left: 20%;
 }
 
-.team-name {
+.team-name, .driver-name {
     white-space: nowrap;
 }
 
@@ -354,6 +356,12 @@ div.banner {
     display: block;
     height: 30px;
     width: 30px;
+}
+
+.driver-logo {
+    display: block;
+    height: 50px;
+    width: 50px;
 }
 
 .drivers-table td .nationality-cell {
@@ -437,14 +445,12 @@ header {
     background-color: red;
     height: 100px;
     position: relative;
-    margin: -8px;
-    margin-bottom: 0px;
 }
 
 header img {
     position: absolute;
     max-height: 50px;
-    top: 25px;
+    top: 30%;
     left: 20px;
 }
 
@@ -455,7 +461,6 @@ footer {
     display: block;
     background-color: red;
     height: 100px;
-    margin: -8px;
     position: relative;
 }
 
@@ -476,8 +481,8 @@ header h1 {
     font-size: 40px;
     color: white;
     position: absolute;
-    left: 32.5%;
-    top: 2.5%;
+    left: 34.5%;
+    top: 15%;
 }
 
 /* Loading */
@@ -683,6 +688,21 @@ div.container.drivers {
     margin-top: 50%;
     margin-left: 5px;
 }
+
+/* Menu Tabs */
+
+a.nav-link {
+    color: white;
+}
+
+    a.nav-link:hover {
+        color: white;
+    }
+
+    a.nav-link.active {
+        color: white;
+        background-color: white;
+    }
 
 /* Responsive */
 

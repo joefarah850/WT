@@ -22,6 +22,8 @@ CORS(app, resources={r"/get_slideshow_images": {"origins": "https://f1-schedule-
                      r"/get_drivers_images": {"origins": "https://f1-schedule-2023.onrender.com"},
                      r"/get_predictions/*": {"origins": "https://f1-schedule-2023.onrender.com"},
                      r"/save_predictions": {"origins": "https://f1-schedule-2023.onrender.com"},
+                     r"/get_drivers_champs": {"origins": "https://f1-schedule-2023.onrender.com"},
+                     r"/get_const_champs": {"origins": "https://f1-schedule-2023.onrender.com"},
                      r"/login": {"origins": "https://f1-schedule-2023.onrender.com"},
                      r"/signup": {"origins": "https://f1-schedule-2023.onrender.com"},
                      r"/logout": {"origins": "https://f1-schedule-2023.onrender.com"},
@@ -299,6 +301,54 @@ def save_predictions():
     db.close()
 
     return jsonify(response)
+
+@app.route('/get_drivers_champs', methods=['GET'])
+def get_drivers_champs():
+    db = mysql.connector.connect(
+        host=os.getenv('HOST'),
+        user=os.getenv('USER'),
+        password=os.getenv('PASSWORD'),
+        database=os.getenv('DATABASE')
+    )
+
+    cursor = db.cursor()
+
+    cursor.execute(f"SELECT d.name, d.img_src, n.nation, n.flag_source, t.name, t.logo_source, c.points \
+                    FROM drivers AS d, nationality AS n, team AS t, drivers_champ AS c \
+                    WHERE d.nationality_id = n.id AND d.team_id = t.id AND c.driver_id = d.id \
+                    ORDER BY c.points DESC;"
+    )
+
+    data = cursor.fetchall()
+
+    cursor.close()
+    db.close()
+
+    return jsonify(data)
+
+@app.route('/get_const_champs', methods=['GET'])
+def get_const_champs():
+    db = mysql.connector.connect(
+        host=os.getenv('HOST'),
+        user=os.getenv('USER'),
+        password=os.getenv('PASSWORD'),
+        database=os.getenv('DATABASE')
+    )
+
+    cursor = db.cursor()
+
+    cursor.execute(f"SELECT t.name, t.logo_source, c.points \
+                    FROM team AS t, team_champ AS c \
+                    WHERE c.team_id = t.id \
+                    ORDER BY c.points DESC;"
+    )
+
+    data = cursor.fetchall()
+
+    cursor.close()
+    db.close()
+
+    return jsonify(data)
 
 @app.route('/')
 def root():

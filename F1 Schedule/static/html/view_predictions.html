@@ -37,6 +37,8 @@
             var currentTitle = url.split("=").pop();
             currentTitle = currentTitle.split("+");
             var index = currentTitle[1];
+            var title = document.getElementById('title');
+            title.textContent = currentTitle[0].replace(/%20/g, " ") + " PREDICTIONS";
 
             fetch(`/get_predictions/${index}`)
                 .then(function (response) {
@@ -72,7 +74,9 @@
                             { orderable: true, targets: 0 },
                             { orderable: false, targets: [1, 2, 3] }
                         ],
-                        order: [[0, "asc"]]
+                        order: [[0, "asc"]],
+                        pageLength: 10,
+                        lengthMenu: [[10, -1], [10, "All"]]
                     });
                 })
                 .catch(function (error) {
