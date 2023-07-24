@@ -118,7 +118,7 @@ body {
 
 #up-event {
     position: absolute;
-    left: 133px;
+    left: 11%;
     font-size: 26px;
     top: 20px;
 }
@@ -126,7 +126,7 @@ body {
 .line {
     position: absolute;
     top: 70px;
-    left: 133px;
+    left: 11%;
     font-size: 26px;
     width: 980px;
     border-bottom: 10px solid black;
@@ -482,7 +482,7 @@ header h1 {
     color: white;
     position: absolute;
     left: 34.5%;
-    top: 15%;
+    top: 10%;
 }
 
 /* Loading */
@@ -806,11 +806,6 @@ a.nav-link {
     }
 
      /* Section 2 */
-
-    .section-2 h3 {
-        left: 5%;
-        font-size: 22px;
-    }
 
     .line {
         left: 5%;
