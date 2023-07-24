@@ -388,6 +388,23 @@ div.banner {
     padding: 20px 0 20.5px 0;
 }
 
+#driv td.points, #driv-2 td.points {
+    padding-left: 18px;
+}
+
+#driv-2 td.team .team-container .team-logo {
+    width: 50px;
+    height: 50px;
+}
+
+#driv-2 {
+    font-size: 18px;
+}
+
+#driv_wrapper, #driv-2_wrapper {
+    margin-top: 50px;
+}
+
 .top {
     font-size: 26px;
     position: absolute;
