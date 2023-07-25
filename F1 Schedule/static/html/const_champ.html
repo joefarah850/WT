@@ -59,7 +59,8 @@
                         const rowData = [
                             position + 1,
                             `<div class="team-container"><img class="team-logo" src="${team[1]}"><span class="team-name">${team[0]}</span></div>`,
-                            team[2]
+                            team[2],
+                            `const_details.html?title=${team[0]}`
                         ];
 
                         dataTableData.push(rowData);
@@ -70,7 +71,8 @@
                         columns: [
                             { title: "Position" },
                             { title: "Team" },
-                            { title: "Points " }
+                            { title: "Points" },
+                            { title: "URL", visible: false }
                         ],
                         columnDefs: [
                             { orderable: true, targets: 0 },
@@ -91,6 +93,14 @@
                         order: [[0, "asc"]],
                         pageLength: 10,
                         lengthMenu: [10]
+                    });
+
+                    $('#driv-2 tbody').on('click', 'tr', function () {
+                        const rowData = table.row(this).data();
+                        const url = rowData[3];
+                        if (url) {
+                            window.location.href = url;
+                        }
                     });
                 })
                 .catch(function (error) {

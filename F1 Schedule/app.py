@@ -216,7 +216,7 @@ def get_drivers_images():
 
     cursor = db.cursor()
 
-    cursor.execute("SELECT name, img_src FROM drivers;")
+    cursor.execute("SELECT name, img_src FROM drivers WHERE name <> 'Nyck De Vries';")
 
     data = cursor.fetchall()
 
@@ -252,7 +252,7 @@ def get_predictions(event):
         driv = []
 
         for i in range(1, 21):
-            cursor.execute(f"SELECT d.name, n.nation, n.flag_source, t.name, t.logo_source \
+            cursor.execute(f"SELECT d.name, n.nation, n.flag_source, t.name, t.logo_source, d.img_src \
                              FROM drivers AS d, nationality AS n, team AS t \
                              WHERE d.nationality_id = n.id AND d.team_id = t.id AND d.name = '{pred[str(i)]}';"
             )
