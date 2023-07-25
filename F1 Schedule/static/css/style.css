@@ -712,14 +712,32 @@ a.nav-link {
     color: white;
 }
 
-    a.nav-link:hover {
-        color: white;
-    }
+a.nav-link:hover {
+    color: white;
+}
 
-    a.nav-link.active {
-        color: white;
-        background-color: white;
-    }
+a.nav-link.active {
+    color: white;
+    background-color: white;
+}
+
+/* Details */
+
+#const-det {
+    width: 90%;
+    margin: 20px auto 0 auto;
+}
+
+#team-title {
+    width: 82%;
+    margin: 20px auto 0 auto;
+}
+
+#driv-2 tbody tr:hover {
+    cursor: pointer;
+    background-color: lightgrey;
+}
+
 
 /* Responsive */
 
