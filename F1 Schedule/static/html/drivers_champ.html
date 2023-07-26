@@ -63,7 +63,8 @@
                             `<div class="driver-container"><img class="driver-logo" src="${driver[1]}"><span class="driver-name">${driver[0]}</span></div>`,
                             `<div class="nationality-container"><img class="nationality-logo" src="${driver[3]}"><span class="nationality-name">${driver[2]}</span></div>`,
                             `<div class="team-container"><img class="team-logo" src="${driver[5]}"><span class="team-name">${driver[4]}</span></div>`,
-                            driver[6]
+                            driver[6],
+                            `drivers_details.html?title=${driver[0]}`
                         ];
 
                         dataTableData.push(rowData);
@@ -76,7 +77,8 @@
                             { title: "Name" },
                             { title: "Nationality" },
                             { title: "Team" },
-                            { title: "Points"}
+                            { title: "Points" },
+                            { title: "URL", visible: false },
                         ],
                         columnDefs: [
                             { orderable: true, targets: 0 },
@@ -90,7 +92,21 @@
                         ],
                         order: [[0, "asc"]],
                         pageLength: 10,
-                        lengthMenu: [[10, -1], [10, "All"]]
+                        lengthMenu: [[10, -1], [10, "All"]],
+                        initComplete: function () {
+                            $('#driv tbody tr').each(function (index) {
+                                if (index < 10)
+                                    $(this).addClass('selectable');
+                            });
+                        }
+                    });
+
+                    $('#driv tbody').on('click', 'tr', function () {
+                        const rowData = table.row(this).data();
+                        const url = rowData[5];
+                        if (url) {
+                            window.location.href = url;
+                        }
                     });
                 })
                 .catch(function (error) {

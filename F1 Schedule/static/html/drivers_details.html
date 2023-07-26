@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.jpeg" style="background-color: transparent">
+    <title>F1 Schedule 2023</title>
+    <link href="../css/style.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body style="font-family: F1;">
+    <header>
+        <img src="../images/f1_logo.svg" alt="F1 logo white" />
+
+        <!-- Title -->
+        <h1>F1 Schedule 2023</h1>
+
+        <ul class="nav nav-tabs justify-content-center" style="position: absolute; width: 100%; bottom: 0;">
+            <li class="nav-item">
+                <a class="nav-link" href="/index">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="drivers_champ.html">Drivers' Championship</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="const_champ.html">Constructors' Championship</a>
+            </li>
+        </ul>
+    </header>
+
+    <div id="const-det"></div>
+
+    <footer>
+        <p>
+            Author: Joe Farah
+            <br>
+            <a href="mailto:joe.farah@wundermanthompson.com">joe.farah@wundermanthompson.com</a>
+        </p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            var url = document.URL;
+            var currentTitle = url.split("=").pop();
+            var image_src = currentTitle.replace(/%20/g, " ");
+
+            var container = document.getElementById('const-det');
+
+            var image = document.createElement('img');
+            image.src = `../images/details/${image_src}-details.jpeg`;
+            image.alt = currentTitle;
+            image.style.width = '100%';
+
+            container.appendChild(image);
+        });
+    </script>
+</body>
+</html>

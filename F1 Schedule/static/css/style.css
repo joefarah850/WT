@@ -738,6 +738,10 @@ a.nav-link.active {
     background-color: lightgrey;
 }
 
+.selectable:hover {
+    cursor: pointer;
+    background-color: lightgrey;
+}
 
 /* Responsive */
 
