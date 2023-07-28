@@ -54,7 +54,7 @@
                     data.prediction.forEach(function (driver, position) {
                         const rowData = [
                             position + 1,
-                            driver[0],
+                            `<div class="driver-container"><img class="driver-logo" src="${driver[5]}"><span class="driver-name">${driver[0]}</span></div>`,
                             `<div class="nationality-container"><img class="nationality-logo" src="${driver[2]}"><span class="nationality-name">${driver[1]}</span></div>`,
                             `<div class="team-container"><img class="team-logo" src="${driver[4]}"><span class="team-name">${driver[3]}</span></div>`
                         ];
